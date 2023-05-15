@@ -1,0 +1,37 @@
+import sys
+import os
+from PIL import Image
+
+
+"""
+Takes a folder of JPGs and loops through them converting each file to PNG
+"""
+
+
+# grab first and second argument
+directory = sys.argv[1]
+new_directory = sys.argv[2]
+
+
+# base on wether new/ exists or needs to be created
+def folder_exist(new_directory):
+    if os.path.isdir(new_directory):
+        print("exists")
+        return True
+
+    else:
+        os.mkdir(f"{new_directory}")
+        return False
+
+
+# convert images in input folder to PNG by looping through folder
+def converter(directory):
+    file = os.listdir(directory)
+    for img in file:
+        clean_name = os.path.splitext(img) # splits txt between name and extension adn returns tuple ("filename", ".filetype"
+        open_img = Image.open(f"./{directory}{clean_name[0]}.jpg")
+        open_img.save(f"{new_directory}{clean_name[0]}.png", "png")
+
+
+folder_exist(new_directory)
+converter(directory)
