@@ -7,8 +7,12 @@ Web Crawler for the Hacker News Website that compiles a list of all articles and
 
 res = requests.get('https://news.ycombinator.com/news')
 soup = BeautifulSoup(res.text, 'html.parser')
-links = soup.select(".titleline")
+links = soup.select(".titleline>a")
 subtext = soup.select(".subtext") 
+
+
+def sort_stories_by_votes(hnlist):
+    return sorted(hnlist, key= lambda k: k["votes"], reverse=True)
 
 
 def create_custom_hacknews(links, subtext):
@@ -21,7 +25,7 @@ def create_custom_hacknews(links, subtext):
             points = int(vote[0].getText().replace(" points", ""))
             print(points)
             hn.append({"title": title, "link": href}, 'votes': points)
-    return hn
+    return sort_stories_by_votes(hn)
 
 
 create_custom_hn(links, subtext)
