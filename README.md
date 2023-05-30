@@ -1,2 +1,2 @@
 # projects
-different projects I'm currently working on or have completed
+different small projects I'm currently working on or have completed
